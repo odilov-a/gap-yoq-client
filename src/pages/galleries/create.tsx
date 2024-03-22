@@ -16,6 +16,7 @@ const Gallery = ({
       <Container.Form
         url="/galleries"
         method="post"
+        name="galleries"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

@@ -41,14 +41,20 @@ const Navigation: React.FC = () => {
 
   const items: MenuItem[] = [
     {
-      key: "News",
-      label: "News",
+      key: "news",
+      label: "news",
       icon: <EditOutlined />,
       route: "/news",
     },
     {
-      key: "evolution",
-      label: "evolution",
+      key: "feedbacks",
+      label: "feedbacks",
+      icon: <EditOutlined />,
+      route: "/feedbacks",
+    },
+    {
+      key: "evolutions",
+      label: "evolutions",
       icon: <UserAddOutlined />,
       route: "/evolutions",
     },
@@ -60,7 +66,7 @@ const Navigation: React.FC = () => {
     },
     {
       key: "galleries",
-      label: "galereya",
+      label: "galleries",
       icon: <FileImageOutlined />,
       route: "/galleries",
     },
@@ -78,7 +84,7 @@ const Navigation: React.FC = () => {
     },
     {
       key: "translations",
-      label: "tarjimalar",
+      label: "translations",
       icon: <Translation />,
       route: "/translations",
     },

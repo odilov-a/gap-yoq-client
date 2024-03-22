@@ -12,6 +12,7 @@ const Evolution = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/evolutions/${get(selectedCard, "_id")}`}
         method="put"
+        name="evolutions"
         fields={[
           {
             name: "year",

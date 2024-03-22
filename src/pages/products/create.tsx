@@ -15,6 +15,7 @@ const Product = ({
       <Container.Form
         url="/products"
         method="post"
+        name="products"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

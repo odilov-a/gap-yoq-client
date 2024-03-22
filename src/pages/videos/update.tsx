@@ -12,6 +12,7 @@ const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/videos/${get(selectedCard, "_id")}`}
         method="put"
+        name="videos"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

@@ -12,6 +12,7 @@ const Gallery = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/galleries/${get(selectedCard, "_id")}`}
         method="put"
+        name="galleries"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

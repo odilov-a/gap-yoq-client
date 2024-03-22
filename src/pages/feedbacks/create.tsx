@@ -1,10 +1,10 @@
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
 import { Field } from "formik";
 import { Fields, Button } from "components";
 import { Container } from "modules";
 import { useHooks } from "hooks";
 
-const Partner = ({
+const Feedback = ({
   showCreateModal,
   setSuccess,
   successed,
@@ -13,30 +13,36 @@ const Partner = ({
   return (
     <div>
       <Container.Form
-        url="/partners"
+        url="/feedbacks"
         method="post"
-        name="partners"
-        configs={{
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }}
+        name="feedbacks"
         fields={[
           {
-            name: "title",
+            name: "name",
             type: "string",
             required: true,
           },
           {
-            name: "image",
+            name: "question",
+            type: "string",
             required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["partners"] });
+          notification["success"]({
+            message: "Успешно!",
+            duration: 2,
+          });
+          query.invalidateQueries({ queryKey: ["feedbacks"] });
           setSuccess((prev: any) => !prev);
           resetForm();
           showCreateModal(false);
         }}
         onError={(error) => {
+          notification["error"]({
+            message: error ? error : "Произошло ошибка!",
+            duration: 2,
+          });
           console.log("Error", error);
         }}
       >
@@ -44,18 +50,20 @@ const Partner = ({
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
-                rootClassName="mb-[10px] w-[450px]"
+                rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
-                name="title"
+                name="name"
                 type="text"
-                placeholder={t("title")}
+                placeholder="name"
                 size="large"
               />
               <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
-                name="image"
+                rootClassName="mb-[40px] w-[450px]"
+                component={Fields.Input}
+                name="question"
+                type="text"
+                placeholder="question"
+                size="large"
               />
               <Button
                 title="Saqlash"
@@ -71,4 +79,4 @@ const Partner = ({
   );
 };
 
-export default Partner;
+export default Feedback;

@@ -1,6 +1,7 @@
 import { lazy } from "react";
 const Default = lazy(() => import("pages/default"));
 const News = lazy(() => import("pages/news"));
+const Feedback = lazy(() => import("pages/feedbacks"));
 const Evolutions = lazy(() => import("pages/evolutions"));
 const Galleries = lazy(() => import("pages/galleries"));
 const Videos = lazy(() => import("pages/videos"));
@@ -30,8 +31,14 @@ const privateRoutes: IRoute[] = [
   {
     path: "/news",
     access: ["admin"],
-    title: "News",
+    title: "news",
     element: <News />,
+  },
+  {
+    path: "/feedbacks",
+    access: ["admin"],
+    title: "feedbacks",
+    element: <Feedback />,
   },
   {
     path: "/evolutions",
@@ -42,7 +49,7 @@ const privateRoutes: IRoute[] = [
   {
     path: "/galleries",
     access: ["admin"],
-    title: "Galleries",
+    title: "galleries",
     element: <Galleries />,
   },
   {

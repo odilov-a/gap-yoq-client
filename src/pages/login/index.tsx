@@ -17,7 +17,7 @@ const Login = () => {
           {
             name: "login",
             type: "string",
-            // required: true,
+            required: true,
           },
           {
             name: "password",

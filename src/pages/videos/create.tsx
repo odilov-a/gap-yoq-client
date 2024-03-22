@@ -15,6 +15,7 @@ const Video = ({
       <Container.Form
         url="/videos"
         method="post"
+        name="videos"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

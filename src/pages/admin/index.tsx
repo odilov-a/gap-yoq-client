@@ -45,8 +45,8 @@ const Profile = () => {
                         className="pb-[40px] flex"
                         title={
                           <div className="mb-3">
+                            <p>ID: {(get(items, "_id", ""))}</p>
                             <p>Yaratilgan: {(get(items, "createdAt", ""))}</p>
-                            <p>id: {(get(items, "_id", ""))}</p>
                             <p>Username: {(get(items, "login", ""))}</p>
                           </div>
                         }

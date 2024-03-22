@@ -13,6 +13,7 @@ const Product = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/products/${get(selectedCard, "_id")}`}
         method="put"
+        name="products"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}

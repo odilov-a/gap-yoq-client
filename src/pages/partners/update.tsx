@@ -12,6 +12,7 @@ const Partner = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/partners/${get(selectedCard, "_id")}`}
         method="put"
+        name="partners"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
