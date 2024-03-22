@@ -17,12 +17,12 @@ const Profile = ({ showUpdateModal }: any): JSX.Element => {
         method="put"
         fields={[
           {
-            name: "newLogin",
+            name: "login",
             type: "string",
             required: true,
           },
           {
-            name: "newPassword",
+            name: "password",
             type: "string",
             required: true,
           },
@@ -40,10 +40,6 @@ const Profile = ({ showUpdateModal }: any): JSX.Element => {
           },
           {
             name: "instagram",
-            type: "string",
-          },
-          {
-            name: "youtube",
             type: "string",
           },
         ]}
@@ -103,14 +99,6 @@ const Profile = ({ showUpdateModal }: any): JSX.Element => {
                 name="instagram"
                 type="text"
                 placeholder="instagram"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="youtube"
-                type="text"
-                placeholder="youtube"
                 size="large"
               />
               <Button

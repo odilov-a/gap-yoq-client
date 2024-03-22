@@ -7,7 +7,7 @@ import Update from "./update";
 import Create from "./create";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 
-const Teacher = () => {
+const Partner = () => {
   const { get, queryClient, t } = useHooks();
   const { Meta } = Card;
   const [editModal, showEditModal] = useState(false);
@@ -28,7 +28,7 @@ const Teacher = () => {
   };
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
-      title: t("Вы действительно хотите удалить учитель?"),
+      title: t("Вы действительно хотите удалить partners?"),
       okText: t("да"),
       okType: "danger",
       cancelText: t("нет"),
@@ -39,13 +39,12 @@ const Teacher = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/teachers/${id}`, data: null },
+        { method: "delete", url: `/partners/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`teachers`],
+              queryKey: [`partners`],
             });
-
             notification["success"]({
               message: "Успешно удалена",
               duration: 2,
@@ -70,7 +69,7 @@ const Teacher = () => {
         onCancel={() => showCreateModal(false)}
         footer={null}
         centered
-        title="Create teacher"
+        title="Create partner"
         width={500}
         destroyOnClose
       >
@@ -82,19 +81,19 @@ const Teacher = () => {
         onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        title="Edit teacher"
+        title="Edit partner"
         width={500}
         destroyOnClose
       >
         <Update {...{ showEditModal, selectedCard }} />
       </Modal>
       <div>
-        <Container.All name="teachers" url="/teachers">
+        <Container.All name="partners" url="/partners">
           {({ items, isLoading }) => {
             return (
               <div>
                 <Button
-                  title="Create teacher"
+                  title="Create partner"
                   icon={<CreateDoc />}
                   // isLoading={successed}
                   size="large"
@@ -108,25 +107,21 @@ const Teacher = () => {
                     return (
                       <>
                         <Col className="gutter-row mb-5" span={6}>
-                          <Card
+                        <Card
                             hoverable
                             style={{ width: 260, marginRight: 15 }}
-                            className="pb-8 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
+                            className="pb-4 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
                             cover={
-                              <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image[0].medium")} />
+                              <div className="">
+                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image[0].medium")} />
+                              </div>
                             }
                           >
                             <Meta
                               className="pb-[40px]"
                               title={
-                                <div>
-                                  <p className="dark:text-[#e5e7eb]">{(get(card, "name", ""))}</p>
-                                  <p className="dark:text-[#e5e7eb] line-clamp-2">{(get(card, "subject", ""))}</p>
-                                </div>
-                              }
-                              description={
-                                <div className="mb-3">
-                                  <p className="line-clamp-3 dark:text-[#e5e7eb]">{(get(card, "description", ""))}</p>
+                                <div className="flex justify-between items-center mb-3">
+                                  <p className="dark:text-[#e5e7eb]">{(get(card, "title", ""))}</p>
                                 </div>
                               }
                             />
@@ -161,4 +156,4 @@ const Teacher = () => {
   );
 };
 
-export default Teacher;
+export default Partner;

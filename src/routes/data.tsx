@@ -1,12 +1,11 @@
 import { lazy } from "react";
 const Default = lazy(() => import("pages/default"));
-const Blogs = lazy(() => import("pages/blogs"));
-const Vacancies = lazy(() => import("pages/vacancies"));
+const News = lazy(() => import("pages/news"));
+const Evolutions = lazy(() => import("pages/evolutions"));
 const Galleries = lazy(() => import("pages/galleries"));
-const Teachers = lazy(() => import("pages/teachers"));
-const Programs = lazy(() => import("pages/programs"));
-const TelegramCourses = lazy(() => import("pages/telegram-courses"));
-const TelegramVacancies = lazy(() => import("pages/telegram-vacancies"));
+const Videos = lazy(() => import("pages/videos"));
+const Products = lazy(() => import("pages/products"));
+const Partners = lazy(() => import("pages/partners"));
 const Admin = lazy(() => import("pages/admin"));
 const Login = lazy(() => import("pages/login"));
 const NotFound = lazy(() => import("pages/notFound"));
@@ -29,16 +28,16 @@ const privateRoutes: IRoute[] = [
     element: <Default />,
   },
   {
-    path: "/blogs",
+    path: "/news",
     access: ["admin"],
-    title: "Blog",
-    element: <Blogs />,
+    title: "News",
+    element: <News />,
   },
   {
-    path: "/vacancies",
+    path: "/evolutions",
     access: ["admin"],
-    title: "vacancies",
-    element: <Vacancies />,
+    title: "evolutions",
+    element: <Evolutions />,
   },
   {
     path: "/galleries",
@@ -47,28 +46,22 @@ const privateRoutes: IRoute[] = [
     element: <Galleries />,
   },
   {
-    path: "/teachers",
+    path: "/videos",
     access: ["admin"],
-    title: "Teachers",
-    element: <Teachers />,
+    title: "videos",
+    element: <Videos />,
   },
   {
-    path: "/programs",
+    path: "/partners",
     access: ["admin"],
-    title: "programs",
-    element: <Programs />,
+    title: "partners",
+    element: <Partners />,
   },
   {
-    path: "/telegram-courses",
+    path: "/products",
     access: ["admin"],
-    title: "telegram-courses",
-    element: <TelegramCourses />,
-  },
-  {
-    path: "/telegram-vacancies",
-    access: ["admin"],
-    title: "telegram-vacancies",
-    element: <TelegramVacancies />,
+    title: "Products",
+    element: <Products />,
   },
   {
     path: "/profile",

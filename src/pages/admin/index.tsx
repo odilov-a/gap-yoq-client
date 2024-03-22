@@ -56,7 +56,6 @@ const Profile = () => {
                             <p>number: {(get(items, "number", "none"))}</p>
                             <p>telegram: {(get(items, "telegram", "none"))}</p>
                             <p>instagram: {(get(items, "instagram", "none"))}</p>
-                            <p>youtube: {(get(items, "youtube", "none"))}</p>
                           </div>
                         }
                       />

@@ -7,7 +7,7 @@ import Update from "./update";
 import Create from "./create";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 
-const Blog = () => {
+const News = () => {
   const { get, queryClient, t } = useHooks();
   const { Meta } = Card;
   const [editModal, showEditModal] = useState(false);
@@ -22,17 +22,17 @@ const Blog = () => {
     data: null,
   });
   const { mutate } = usePost();
-
   const onEdit = (item: object) => {
     showEditModal(true);
     setSelectedCard(item);
   };
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
-      title: t("Вы действительно хотите удалить блог?"),
+      title: t("Вы действительно хотите удалить news?"),
       okText: t("да"),
       okType: "danger",
       cancelText: t("нет"),
+      className: "dark:text-white",
       onOk: () => deleteAction(id),
     });
   };
@@ -40,13 +40,12 @@ const Blog = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/blogs/${id}`, data: null },
+        { method: "delete", url: `/news/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`blogs`],
+              queryKey: ["news"],
             });
-
             notification["success"]({
               message: "Успешно удалена",
               duration: 2,
@@ -71,7 +70,7 @@ const Blog = () => {
         onCancel={() => showCreateModal(false)}
         footer={null}
         centered
-        title="Create blog"
+        title="Create new"
         width={500}
         destroyOnClose
       >
@@ -83,52 +82,57 @@ const Blog = () => {
         onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        title="Edit blog"
+        title="Edit new"
         width={500}
         destroyOnClose
       >
         <Update {...{ showEditModal, selectedCard }} />
       </Modal>
       <div>
-        <Container.All name="blogs" url="/blogs">
+        <Container.All name="news" url="/news">
           {({ items, isLoading }) => {
             return (
               <div>
                 <Button
-                  title="Create blog"
+                  title="Create new"
                   icon={<CreateDoc />}
-                  // isLoading={successed}
                   size="large"
                   onClick={() => showCreateModal(true)}
                 />
                 <Row
                   justify="space-between"
-                  className="h-[75vh] overflow-y-auto mt-[15px]"
+                  className="h-[75vh] mt-[15px] items-stretch"
                 >
-                  {items.map((card) => {
+                  {items.map((card,idx) => {
                     return (
                       <>
                         <Col className="gutter-row mb-5" span={6}>
                           <Card
                             hoverable
                             style={{ width: 260, marginRight: 15 }}
-                            className="pb-8"
+                            className="pb-4 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
+                            key={idx}
                             cover={
-                              <img alt="" src={get(card, "image[0].medium")} />
+                              <div className="">
+                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image[0].medium")} />
+                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image02[0].medium")} />
+                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image03[0].medium")} />
+                              </div>
                             }
                           >
                             <Meta
-                              className="pb-[40px]"
+                              className="pb-[40px] p-0"
                               title={
-                                <div className="flex justify-between items-center mb-3">
-                                  <p>{(get(card, "title", ""))}</p>
-                                  <p>{(get(card, "views", ""))}</p>
-                                  <p>{(get(card, "createdAt", ""))}</p>
+                                <div className="mb-1">
+                                  <p className="dark:text-[#e5e7eb] block truncate">{(get(card, "title", ""))}</p>
+                                  <div className="flex">
+                                    <p className="dark:text-[#e5e7eb]">{(get(card, "hashtag", ""))}</p>
+                                  </div>
                                 </div>
                               }
                               description={
-                                <div className="flex justify-between items-center mb-3">
-                                  <p>{(get(card, "description", ""))}</p>
+                                <div className="flex justify-between items-center mb-2">
+                                  <p className="dark:text-[#e5e7eb] line-clamp-3">{(get(card, "description", ""))}</p>
                                 </div>
                               }
                             />
@@ -149,6 +153,7 @@ const Blog = () => {
                               </div>
                             </div>
                           </Card>
+                          <br />
                         </Col>
                       </>
                     );
@@ -163,4 +168,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default News;

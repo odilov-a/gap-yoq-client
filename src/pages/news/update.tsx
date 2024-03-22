@@ -4,29 +4,29 @@ import { Container } from "modules";
 import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
 
-const Teacher = ({ showEditModal, selectedCard }: any): JSX.Element => {
+const News = ({ showEditModal, selectedCard }: any): JSX.Element => {
   const { get } = useHooks();
-
   return (
     <div className="">
       <Container.Form
         className="w-[100%]"
-        url={`/teachers/${get(selectedCard, "_id")}`}
+        url={`/news/${get(selectedCard, "_id")}`}
+        name="news"
         method="put"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "name",
+            name: "title",
             type: "string",
-            value: get(selectedCard, "name"),
+            value: get(selectedCard, "title"),
             required: true,
           },
           {
-            name: "subject",
+            name: "hashtag",
             type: "string",
-            value: get(selectedCard, "subject"),
+            value: get(selectedCard, "hashtag"),
             required: true,
           },
           {
@@ -37,11 +37,17 @@ const Teacher = ({ showEditModal, selectedCard }: any): JSX.Element => {
           },
           {
             name: "image",
-            type: "string",
+            required: true,
+          },
+          {
+            name: "image02",
+          },
+          {
+            name: "image03",
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["teachers"] });
+          // query.invalidateQueries({ queryKey: ["news"] });
           showEditModal(false)
         }}
         onError={(error) => {
@@ -53,34 +59,48 @@ const Teacher = ({ showEditModal, selectedCard }: any): JSX.Element => {
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
                 component={Fields.Input}
-                className="mb-3 w-full"
-                name="name"
+                className="mb-5 w-[100%]"
+                name="title"
                 type="text"
-                placeholder="Teacher name"
+                placeholder="News nomi"
                 size="large"
               />
               <Field
-                className="mb-3 w-full"
                 component={Fields.Input}
-                name="subject"
+                className="mb-5 w-[100%]"
+                name="hashtag"
                 type="text"
-                placeholder="subject"
+                placeholder="hashtag nomi"
                 size="large"
               />
               <Field
-                className="mb-3 w-full"
+                className="mb-5 w-[100%]"
                 component={Fields.Input}
                 name="description"
                 type="text"
-                placeholder="Description"
+                placeholder="News haqida"
                 size="large"
               />
-              <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                className="mb-4"
-                name="image"
-              />
+              <div className="flex justify-between">
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  className="mb-5"
+                  name="image"
+                />
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  className="mb-5"
+                  name="image02"
+                />
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  className="mb-5"
+                  name="image03"
+                />
+              </div>
               <Button
                 className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
                 htmlType="submit"
@@ -95,4 +115,4 @@ const Teacher = ({ showEditModal, selectedCard }: any): JSX.Element => {
   );
 };
 
-export default Teacher;
+export default News;

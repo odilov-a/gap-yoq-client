@@ -7,7 +7,7 @@ import Update from "./update";
 import Create from "./create";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 
-const Blog = () => {
+const Product = () => {
   const { get, queryClient, t } = useHooks();
   const { Meta } = Card;
   const [editModal, showEditModal] = useState(false);
@@ -28,11 +28,10 @@ const Blog = () => {
   };
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
-      title: t("Вы действительно хотите удалить блог?"),
+      title: t("Вы действительно хотите удалить product?"),
       okText: t("да"),
       okType: "danger",
       cancelText: t("нет"),
-      className: "dark:text-white ",
       onOk: () => deleteAction(id),
     });
   };
@@ -40,12 +39,13 @@ const Blog = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/blogs/${id}`, data: null },
+        { method: "delete", url: `/products/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`blogs`],
+              queryKey: [`products`],
             });
+
             notification["success"]({
               message: "Успешно удалена",
               duration: 2,
@@ -70,7 +70,7 @@ const Blog = () => {
         onCancel={() => showCreateModal(false)}
         footer={null}
         centered
-        title="Create blog"
+        title="Create product"
         width={500}
         destroyOnClose
       >
@@ -82,19 +82,19 @@ const Blog = () => {
         onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        title="Edit blog"
+        title="Edit product"
         width={500}
         destroyOnClose
       >
         <Update {...{ showEditModal, selectedCard }} />
       </Modal>
       <div>
-        <Container.All name="blogs" url="/blogs">
+        <Container.All name="products" url="/products">
           {({ items, isLoading }) => {
             return (
               <div>
                 <Button
-                  title="Create blog"
+                  title="Create product"
                   icon={<CreateDoc />}
                   // isLoading={successed}
                   size="large"
@@ -102,7 +102,7 @@ const Blog = () => {
                 />
                 <Row
                   justify="space-between"
-                  className="h-[75vh] mt-[15px] items-stretch"
+                  className="h-[75vh] mt-[15px]"
                 >
                   {items.map((card) => {
                     return (
@@ -111,25 +111,21 @@ const Blog = () => {
                           <Card
                             hoverable
                             style={{ width: 260, marginRight: 15 }}
-                            className="pb-4 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
+                            className="pb-8 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
                             cover={
                               <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image[0].medium")} />
                             }
                           >
                             <Meta
-                              className="pb-[40px] p-0"
+                              className="pb-[40px]"
                               title={
-                                <div className="mb-1">
-                                  <p className="dark:text-[#e5e7eb] block truncate">{(get(card, "title", ""))}</p>
-                                  <div className="flex">
-                                    <p className="text-[#e5e7eb] mr-1">Views: </p>
-                                    <p className="dark:text-[#e5e7eb]">{(get(card, "views", ""))}</p>
-                                  </div>
+                                <div>
+                                  <p className="dark:text-[#e5e7eb]">{(get(card, "title", ""))}</p>
                                 </div>
                               }
                               description={
-                                <div className="flex justify-between items-center mb-2">
-                                  <p className="dark:text-[#e5e7eb] line-clamp-3">{(get(card, "description", ""))}</p>
+                                <div className="mb-3">
+                                  <p className="line-clamp-3 dark:text-[#e5e7eb]">{(get(card, "description", ""))}</p>
                                 </div>
                               }
                             />
@@ -164,4 +160,4 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+export default Product;

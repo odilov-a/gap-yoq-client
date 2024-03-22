@@ -1,48 +1,42 @@
-import { Spin } from "antd";
+import { Fields } from "components";
 import { Field } from "formik";
-import { Fields, Button } from "components";
 import { Container } from "modules";
+import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
 
-const Blog = ({
-  showCreateModal,
-  setSuccess,
-  successed,
-}: any): JSX.Element => {
-  const { t } = useHooks();
+const Product = ({ showEditModal, selectedCard }: any): JSX.Element => {
+  const { get } = useHooks();
 
   return (
-    <div>
+    <div className="">
       <Container.Form
-        url="/students"
-        method="post"
+        className="w-[100%]"
+        url={`/products/${get(selectedCard, "_id")}`}
+        method="put"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "name",
+            name: "title",
             type: "string",
+            value: get(selectedCard, "title"),
             required: true,
           },
           {
-            name: "subject",
+            name: "description",
             type: "string",
+            value: get(selectedCard, "description"),
             required: true,
-          },
-          {
-            name: "achievements",
           },
           {
             name: "image",
-            required: true,
+            type: "string",
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["students"] });
-          setSuccess((prev: any) => !prev);
-          resetForm();
-          showCreateModal(false);
+          query.invalidateQueries({ queryKey: ["teachers"] });
+          showEditModal(false)
         }}
         onError={(error) => {
           console.log("Error", error);
@@ -52,33 +46,33 @@ const Blog = ({
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
-                rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
+                className="mb-3 w-full"
                 name="title"
                 type="text"
-                placeholder={t("Blog nomi")}
+                placeholder="title"
                 size="large"
               />
               <Field
-                rootClassName="mb-[40px] w-[450px]"
+                className="mb-3 w-full"
                 component={Fields.Input}
                 name="description"
                 type="text"
-                placeholder={t("Blog haqida")}
+                placeholder="Description"
                 size="large"
               />
               <Field
                 component={Fields.FileUpload}
                 setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
+                className="mb-4"
                 name="image"
               />
               <Button
-                title="Saqlash"
-                className="w-full mt-[20px]"
+                className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
                 htmlType="submit"
-                size="large"
-              />
+              >
+                Saqlash
+              </Button>
             </Spin>
           );
         }}
@@ -87,4 +81,4 @@ const Blog = ({
   );
 };
 
-export default Blog;
+export default Product;

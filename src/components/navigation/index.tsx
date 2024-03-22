@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
-import { FileImageOutlined, UserOutlined, BookOutlined, EditOutlined, SettingOutlined, UserAddOutlined } from "@ant-design/icons";
+import { FileImageOutlined, UserOutlined, BookOutlined, EditOutlined, UserAddOutlined, PlaySquareOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import {
   Translation,
@@ -9,7 +9,6 @@ import {
   Dark,
 } from "assets/images/icons";
 import useStore from "store";
-// import Avatar from "assets/images/avatar.png";
 import { useHooks } from "hooks";
 import { storage } from "services";
 
@@ -42,16 +41,22 @@ const Navigation: React.FC = () => {
 
   const items: MenuItem[] = [
     {
-      key: "blogs",
-      label: "bloglar",
+      key: "News",
+      label: "News",
       icon: <EditOutlined />,
-      route: "/blogs",
+      route: "/news",
     },
     {
-      key: "vacancies",
-      label: "vakansiya",
+      key: "evolution",
+      label: "evolution",
       icon: <UserAddOutlined />,
-      route: "/vacancies",
+      route: "/evolutions",
+    },
+    {
+      key: "partners",
+      label: "partners",
+      icon: <BookOutlined />,
+      route: "/partners",
     },
     {
       key: "galleries",
@@ -60,28 +65,16 @@ const Navigation: React.FC = () => {
       route: "/galleries",
     },
     {
-      key: "teachers",
-      label: "teacher",
+      key: "videos",
+      label: "videos",
+      icon: <PlaySquareOutlined />,
+      route: "/videos",
+    },
+    {
+      key: "products",
+      label: "Products",
       icon: <UserOutlined />,
-      route: "/teachers",
-    },
-    {
-      key: "programs",
-      label: "programs",
-      icon: <BookOutlined />,
-      route: "/programs",
-    },
-    {
-      key: "telegram-courses",
-      label: "telegram-courses",
-      icon: <SettingOutlined />,
-      route: "/telegram-courses",
-    },
-    {
-      key: "telegram-vacancies",
-      label: "telegram-vacancies",
-      icon: <SettingOutlined />,
-      route: "/telegram-vacancies",
+      route: "/products",
     },
     {
       key: "translations",
@@ -125,10 +118,8 @@ const Navigation: React.FC = () => {
       defaultSelectedKeys={["Arizalar"]}
       style={{ transition: "none" }}
     >
-      {/* <div> */}
       <div className="flex justify-center text-center text-[20px] font-[500] mt-[30px] mb-[60px] cursor-pointer dark:text-[#9EA3B5]">
-        {/* <img src={Logo} alt="logo" /> */}
-        <Link to="/">{t("Contact School")}</Link>
+        <Link to="/">{t("Gap Yo'q - Dashboard")}</Link>
       </div>
       {items.map((menuItem, i) => (
         <React.Fragment key={menuItem.key + i}>
@@ -167,19 +158,10 @@ const Navigation: React.FC = () => {
           )}
         </React.Fragment>
       ))}
-      {/* </div> */}
       <div>
         <div className="absolute bottom-[36px] left-[20%]">
           <div className="flex justify-center bottom-[120px] h-[80px]">
             <div className="profile-panel transition-all ease-in-out duration-300">
-              {/* <img
-                className="sider-avatar cursor-pointer w-[105px] relative z-1 h-[95px] rounded-[12px]"
-                src={Avatar}
-                alt="user-avatar"
-                onClick={() => {
-                  navigate("/profile");
-                }}
-              /> */}
               <div className="username-input w-[175px] relative z-10 px-[6px] py-[4px] rounded-[16px] bg-[#E6ECFE] flex justify-between items-center">
                 <Link
                   to="/profile"
@@ -225,21 +207,4 @@ const Navigation: React.FC = () => {
     </Menu>
   );
 };
-{
-  /* <Dropdown
-  className="mr-5"
-  menu={{
-    items,
-    onClick: (value) => {
-      if (get(value, "key") === "4") {
-        logOut();
-        storage.remove("token");
-        navigate("/");
-      }
-    },
-  }}
->
-  <Avatar size={35} icon={<UserOutlined width={"20px"} />} />
-</Dropdown>; */
-}
 export default Navigation;

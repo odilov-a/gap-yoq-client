@@ -4,30 +4,25 @@ import { Container } from "modules";
 import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
 
-const TelegramCourses = ({ showEditModal, selectedCard }: any): JSX.Element => {
+const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
   const { get } = useHooks();
   return (
     <div className="">
       <Container.Form
         className="w-[100%]"
-        url={`telegram-courses/course/${get(selectedCard, "_id")}`}
+        url={`/videos/${get(selectedCard, "_id")}`}
         method="put"
+        configs={{
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }}
         fields={[
           {
-            name: "telegramBotToken",
+            name: "videos",
             type: "string",
-            value: get(selectedCard, "telegramBotToken"),
-            required: true,
-          },
-          {
-            name: "telegramChannelChatId",
-            type: "string",
-            value: get(selectedCard, "telegramChannelChatId"),
-            required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["telegram-courses"] });
+          query.invalidateQueries({ queryKey: ["videos"] });
           showEditModal(false)
         }}
         onError={(error) => {
@@ -38,20 +33,10 @@ const TelegramCourses = ({ showEditModal, selectedCard }: any): JSX.Element => {
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
-                component={Fields.Input}
-                className="mb-3 w-full"
-                name="telegramBotToken"
-                type="text"
-                placeholder="telegramBotToken"
-                size="large"
-              />
-              <Field
-                className="mb-3 w-full"
-                component={Fields.Input}
-                name="telegramChannelChatId"
-                type="text"
-                placeholder="telegramChannelChatId"
-                size="large"
+                component={Fields.FileUpload}
+                setFieldValue={setFieldValue}
+                className="mb-4"
+                name="videos"
               />
               <Button
                 className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
@@ -67,4 +52,4 @@ const TelegramCourses = ({ showEditModal, selectedCard }: any): JSX.Element => {
   );
 };
 
-export default TelegramCourses;
+export default Video;

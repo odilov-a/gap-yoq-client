@@ -1,34 +1,44 @@
-import { Fields } from "components";
+import { Spin } from "antd";
 import { Field } from "formik";
+import { Fields, Button } from "components";
 import { Container } from "modules";
-import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
 
-const Program = ({ showEditModal, selectedCard }: any): JSX.Element => {
-  const { get } = useHooks();
+const Product = ({
+  showCreateModal,
+  setSuccess,
+  successed,
+}: any): JSX.Element => {
+  const { t } = useHooks();
   return (
-    <div className="">
+    <div>
       <Container.Form
-        className="w-[100%]"
-        url={`/programs/${get(selectedCard, "_id")}`}
-        method="put"
+        url="/products"
+        method="post"
+        configs={{
+          headers: { 'Content-Type': 'multipart/form-data' },
+        }}
         fields={[
           {
             name: "title",
             type: "string",
-            value: get(selectedCard, "title"),
             required: true,
           },
           {
             name: "description",
             type: "string",
-            value: get(selectedCard, "description"),
+            required: true,
+          },
+          {
+            name: "image",
             required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["programs"] });
-          showEditModal(false)
+          query.invalidateQueries({ queryKey: ["products"] });
+          setSuccess((prev: any) => !prev);
+          resetForm();
+          showCreateModal(false);
         }}
         onError={(error) => {
           console.log("Error", error);
@@ -38,27 +48,33 @@ const Program = ({ showEditModal, selectedCard }: any): JSX.Element => {
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
+                rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
-                className="mb-3 w-full"
                 name="title"
                 type="text"
-                placeholder="title"
+                placeholder={t("Product name")}
                 size="large"
               />
               <Field
-                className="mb-3 w-full"
+                rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
                 name="description"
                 type="text"
-                placeholder="description"
+                placeholder={t("Description")}
                 size="large"
               />
+              <Field
+                component={Fields.FileUpload}
+                setFieldValue={setFieldValue}
+                rootClassName="mb-[40px]"
+                name="image"
+              />
               <Button
-                className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
+                title="Saqlash"
+                className="w-full mt-[20px]"
                 htmlType="submit"
-              >
-                Saqlash
-              </Button>
+                size="large"
+              />
             </Spin>
           );
         }}
@@ -67,4 +83,4 @@ const Program = ({ showEditModal, selectedCard }: any): JSX.Element => {
   );
 };
 
-export default Program;
+export default Product;

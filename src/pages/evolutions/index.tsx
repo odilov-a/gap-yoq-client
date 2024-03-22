@@ -7,7 +7,7 @@ import Update from "./update";
 import Create from "./create";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 
-const Vacancy = () => {
+const Evolution = () => {
   const { get, queryClient, t } = useHooks();
   const { Meta } = Card;
   const [editModal, showEditModal] = useState(false);
@@ -39,11 +39,11 @@ const Vacancy = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/vacancies/${id}`, data: null },
+        { method: "delete", url: `/evolutions/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`vacancies`],
+              queryKey: [`evolutions`],
             });
             notification["success"]({
               message: "Успешно удалена",
@@ -69,7 +69,7 @@ const Vacancy = () => {
         onCancel={() => showCreateModal(false)}
         footer={null}
         centered
-        title="Create vacancy"
+        title="Create evolution"
         width={500}
         destroyOnClose
       >
@@ -81,19 +81,19 @@ const Vacancy = () => {
         onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        title="Edit vacancy"
+        title="Edit evolution"
         width={500}
         destroyOnClose
       >
         <Update {...{ showEditModal, selectedCard }} />
       </Modal>
       <div>
-        <Container.All name="vacancies" url="/vacancies">
+        <Container.All name="evolutions" url="/evolutions">
           {({ items, isLoading }) => {
             return (
               <div>
                 <Button
-                  title="Create vacancy"
+                  title="Create evolution"
                   icon={<CreateDoc />}
                   // isLoading={successed}
                   size="large"
@@ -117,16 +117,12 @@ const Vacancy = () => {
                               className="pb-[40px]"
                               title={
                                 <div className="flex justify-between items-center mb-1">
-                                  <p className="dark:text-[#c4c5c8] text-lg">{(get(card, "title", ""))}</p>
+                                  <p className="dark:text-[#c4c5c8] text-lg">{(get(card, "year", ""))}</p>
                                 </div>
                               }
                               description={
                                 <div>
                                   <p className="dark:text-[#e5e7eb] text-base line-clamp-3  mb-1">{(get(card, "description", ""))}</p>
-                                  <p className="text-[#558dfe]">Ish Kunlari:</p>
-                                  <p className="dark:text-[#e5e7eb] line-clamp-3">{(get(card, "week", ""))}</p>
-                                  <p className="text-[#558dfe]">Ish Vaqti:</p>
-                                  <p className="dark:text-[#e5e7eb] line-clamp-3">{(get(card, "clock", ""))}</p>
                                 </div>
                               }
                             />
@@ -161,4 +157,4 @@ const Vacancy = () => {
   );
 };
 
-export default Vacancy;
+export default Evolution;

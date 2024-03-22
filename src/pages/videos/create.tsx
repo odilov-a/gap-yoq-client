@@ -4,39 +4,28 @@ import { Fields, Button } from "components";
 import { Container } from "modules";
 import { useHooks } from "hooks";
 
-const Blog = ({
+const Video = ({
   showCreateModal,
   setSuccess,
   successed,
 }: any): JSX.Element => {
   const { t } = useHooks();
-
   return (
     <div>
       <Container.Form
-        url="/blogs"
+        url="/videos"
         method="post"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "title",
-            type: "string",
-            required: true,
-          },
-          {
-            name: "description",
-            type: "string",
-            required: true,
-          },
-          {
-            name: "image",
+            name: "videos",
             required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["blogs"] });
+          query.invalidateQueries({ queryKey: ["videos"] });
           setSuccess((prev: any) => !prev);
           resetForm();
           showCreateModal(false);
@@ -49,26 +38,10 @@ const Blog = ({
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
-                rootClassName="mb-[40px] w-[450px]"
-                component={Fields.Input}
-                name="title"
-                type="text"
-                placeholder={t("Blog nomi")}
-                size="large"
-              />
-              <Field
-                rootClassName="mb-[40px] w-[450px]"
-                component={Fields.Input}
-                name="description"
-                type="text"
-                placeholder={t("Blog haqida")}
-                size="large"
-              />
-              <Field
                 component={Fields.FileUpload}
                 setFieldValue={setFieldValue}
                 rootClassName="mb-[40px]"
-                name="image"
+                name="videos"
               />
               <Button
                 title="Saqlash"
@@ -84,4 +57,4 @@ const Blog = ({
   );
 };
 
-export default Blog;
+export default Video;

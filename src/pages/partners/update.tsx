@@ -4,14 +4,13 @@ import { Container } from "modules";
 import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
 
-const Blog = ({ showEditModal, selectedCard }: any): JSX.Element => {
+const Partner = ({ showEditModal, selectedCard }: any): JSX.Element => {
   const { get } = useHooks();
-
   return (
     <div className="">
       <Container.Form
         className="w-[100%]"
-        url={`/blogs/${get(selectedCard, "_id")}`}
+        url={`/partners/${get(selectedCard, "_id")}`}
         method="put"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
@@ -24,18 +23,12 @@ const Blog = ({ showEditModal, selectedCard }: any): JSX.Element => {
             required: true,
           },
           {
-            name: "description",
-            type: "string",
-            value: get(selectedCard, "description"),
-            required: true,
-          },
-          {
             name: "image",
             type: "string",
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["blogs"] });
+          query.invalidateQueries({ queryKey: ["partners"] });
           showEditModal(false)
         }}
         onError={(error) => {
@@ -47,24 +40,16 @@ const Blog = ({ showEditModal, selectedCard }: any): JSX.Element => {
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
                 component={Fields.Input}
-                className="mb-5 w-[100%]"
+                className="mb-3 w-full"
                 name="title"
                 type="text"
-                placeholder="Blog nomi"
-                size="large"
-              />
-              <Field
-                className="mb-5 w-[100%]"
-                component={Fields.Input}
-                name="description"
-                type="text"
-                placeholder="Blog haqida"
+                placeholder="title"
                 size="large"
               />
               <Field
                 component={Fields.FileUpload}
                 setFieldValue={setFieldValue}
-                className="mb-5"
+                className="mb-4"
                 name="image"
               />
               <Button
@@ -81,4 +66,4 @@ const Blog = ({ showEditModal, selectedCard }: any): JSX.Element => {
   );
 };
 
-export default Blog;
+export default Partner;

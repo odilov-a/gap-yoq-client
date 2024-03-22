@@ -1,32 +1,32 @@
-import { Spin } from "antd";
+import { Spin, notification } from "antd";
 import { Field } from "formik";
 import { Fields, Button } from "components";
 import { Container } from "modules";
 import { useHooks } from "hooks";
 
-const Teacher = ({
+const News = ({
   showCreateModal,
   setSuccess,
   successed,
 }: any): JSX.Element => {
   const { t } = useHooks();
-
   return (
     <div>
       <Container.Form
-        url="/teachers"
+        url="/news"
         method="post"
+        name="news"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "name",
+            name: "title",
             type: "string",
             required: true,
           },
           {
-            name: "subject",
+            name: "hashtag",
             type: "string",
             required: true,
           },
@@ -39,14 +39,28 @@ const Teacher = ({
             name: "image",
             required: true,
           },
+          {
+            name: "image02",
+          },
+          {
+            name: "image03",
+          },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["teachers"] });
+          notification["success"]({
+            message: "Успешно!",
+            duration: 2,
+          });
+          // query.invalidateQueries({ queryKey: ["news"] });
           setSuccess((prev: any) => !prev);
           resetForm();
           showCreateModal(false);
         }}
         onError={(error) => {
+          notification["error"]({
+            message: error ? error : "Произошло ошибка!",
+            duration: 2,
+          });
           console.log("Error", error);
         }}
       >
@@ -56,17 +70,17 @@ const Teacher = ({
               <Field
                 rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
-                name="name"
+                name="title"
                 type="text"
-                placeholder={t("Teacher name")}
+                placeholder={t("News nomi")}
                 size="large"
               />
               <Field
                 rootClassName="mb-[40px] w-[450px]"
                 component={Fields.Input}
-                name="subject"
+                name="hashtag"
                 type="text"
-                placeholder={t("Subject")}
+                placeholder={t("hashtag")}
                 size="large"
               />
               <Field
@@ -74,15 +88,29 @@ const Teacher = ({
                 component={Fields.Input}
                 name="description"
                 type="text"
-                placeholder={t("Description")}
+                placeholder={t("News haqida")}
                 size="large"
               />
-              <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
-                name="image"
-              />
+              <div className="flex justify-between">
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  rootClassName="mb-[40px]"
+                  name="image"
+                />
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  rootClassName="mb-[40px]"
+                  name="image02"
+                />
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  rootClassName="mb-[40px]"
+                  name="image03"
+                />
+              </div>
               <Button
                 title="Saqlash"
                 className="w-full mt-[20px]"
@@ -97,4 +125,4 @@ const Teacher = ({
   );
 };
 
-export default Teacher;
+export default News;
