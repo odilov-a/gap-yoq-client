@@ -12,18 +12,18 @@ const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
         className="w-[100%]"
         url={`/videos/${get(selectedCard, "_id")}`}
         method="put"
-        name="videos"
+        name="video"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "videos",
+            name: "video",
             type: "string",
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["videos"] });
+          query.invalidateQueries({ queryKey: ["video"] });
           showEditModal(false)
         }}
         onError={(error) => {
@@ -37,7 +37,7 @@ const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
                 component={Fields.FileUpload}
                 setFieldValue={setFieldValue}
                 className="mb-4"
-                name="videos"
+                name="video"
               />
               <Button
                 className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"

@@ -15,13 +15,13 @@ const Video = ({
       <Container.Form
         url="/videos"
         method="post"
-        name="videos"
+        name="video"
         configs={{
           headers: { 'Content-Type': 'multipart/form-data' },
         }}
         fields={[
           {
-            name: "videos",
+            name: "video",
             required: true,
           },
         ]}
@@ -38,12 +38,12 @@ const Video = ({
         {({ isSubmitting, setFieldValue }) => {
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
-              <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
-                name="videos"
-              />
+                <Field
+                  component={Fields.FileUpload}
+                  setFieldValue={setFieldValue}
+                  rootClassName="mb-[40px]"
+                  name="video"
+                />
               <Button
                 title="Saqlash"
                 className="w-full mt-[20px]"

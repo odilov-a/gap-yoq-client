@@ -77,12 +77,6 @@ const Navigation: React.FC = () => {
       route: "/videos",
     },
     {
-      key: "products",
-      label: "Products",
-      icon: <UserOutlined />,
-      route: "/products",
-    },
-    {
       key: "translations",
       label: "translations",
       icon: <Translation />,

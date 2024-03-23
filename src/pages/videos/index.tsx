@@ -43,7 +43,7 @@ const Video = () => {
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`videos`],
+              queryKey: [`video`],
             });
             notification["success"]({
               message: "Успешно удалена",
@@ -100,7 +100,6 @@ const Video = () => {
                   onClick={() => showCreateModal(true)}
                 />
                 <Row
-                  // justify=""
                   className="h-[120px] mt-[15px]"
                 >
                   {items.map((card) => {
@@ -112,10 +111,13 @@ const Video = () => {
                             style={{ width: 260, marginRight: 15 }}
                             className="pb-4 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
                             cover={
-                              <video className="object-cover rounded-[10px] w-[260px] h-[200px]" controls controlsList="nodownload">
-                                <source src={get(card, "link")} type="video/mp4" />
-                                <source src={get(card, "link")} type="video/ogg" />
-                              </video>
+                              <div className="flex justify-between">
+                                <video className="object-cover rounded-[10px] w-[260px] h-[200px]" controls controlsList="nodownload">
+                                  <source src={get(card, "video_link")} type="video/mp4" />
+                                  <source src={get(card, "video_link")} type="video/ogg" />
+                                </video>
+                                <img className="object-cover rounded-[10px] w-[260px] h-[200px]" src={get(card, "image_link")} alt="" />
+                              </div>
                             }
                           />
                           <div className="btnPanel">

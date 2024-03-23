@@ -5,7 +5,6 @@ const Feedback = lazy(() => import("pages/feedbacks"));
 const Evolutions = lazy(() => import("pages/evolutions"));
 const Galleries = lazy(() => import("pages/galleries"));
 const Videos = lazy(() => import("pages/videos"));
-const Products = lazy(() => import("pages/products"));
 const Partners = lazy(() => import("pages/partners"));
 const Admin = lazy(() => import("pages/admin"));
 const Login = lazy(() => import("pages/login"));
@@ -63,12 +62,6 @@ const privateRoutes: IRoute[] = [
     access: ["admin"],
     title: "partners",
     element: <Partners />,
-  },
-  {
-    path: "/products",
-    access: ["admin"],
-    title: "Products",
-    element: <Products />,
   },
   {
     path: "/profile",
