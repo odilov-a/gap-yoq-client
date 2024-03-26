@@ -47,7 +47,7 @@ const News = ({ showEditModal, selectedCard }: any): JSX.Element => {
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          // query.invalidateQueries({ queryKey: ["news"] });
+          query.invalidateQueries({ queryKey: ["news"] });
           showEditModal(false)
         }}
         onError={(error) => {

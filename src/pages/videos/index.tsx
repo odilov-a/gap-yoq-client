@@ -113,10 +113,10 @@ const Video = () => {
                             cover={
                               <div className="flex justify-between">
                                 <video className="object-cover rounded-[10px] w-[260px] h-[200px]" controls controlsList="nodownload">
-                                  <source src={get(card, "video_link")} type="video/mp4" />
-                                  <source src={get(card, "video_link")} type="video/ogg" />
+                                  <source src={get(card, "video")} type="video/mp4" />
+                                  <source src={get(card, "video")} type="video/ogg" />
                                 </video>
-                                <img className="object-cover rounded-[10px] w-[260px] h-[200px]" src={get(card, "image_link")} alt="" />
+                                <img className="object-cover rounded-[10px] w-[260px] h-[200px]" src={get(card, "image[0].medium")} alt="" />
                               </div>
                             }
                           />

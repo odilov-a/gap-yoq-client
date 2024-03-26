@@ -7,7 +7,7 @@ import Update from "./update";
 import Create from "./create";
 import { Delete, Edit, CreateDoc } from "assets/images/icons";
 
-const News = () => {
+const Dealer = () => {
   const { get, queryClient, t } = useHooks();
   const { Meta } = Card;
   const [editModal, showEditModal] = useState(false);
@@ -28,11 +28,10 @@ const News = () => {
   };
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
-      title: t("Вы действительно хотите удалить news?"),
+      title: t("Вы действительно хотите удалить вакансия?"),
       okText: t("да"),
       okType: "danger",
       cancelText: t("нет"),
-      className: "dark:text-white",
       onOk: () => deleteAction(id),
     });
   };
@@ -40,11 +39,11 @@ const News = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/news/${id}`, data: null },
+        { method: "delete", url: `/dealers/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: ["news"],
+              queryKey: [`dealers`],
             });
             notification["success"]({
               message: "Успешно удалена",
@@ -70,7 +69,7 @@ const News = () => {
         onCancel={() => showCreateModal(false)}
         footer={null}
         centered
-        title="Create new"
+        title="Create dealer"
         width={500}
         destroyOnClose
       >
@@ -82,57 +81,49 @@ const News = () => {
         onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        title="Edit new"
+        title="Edit dealer"
         width={500}
         destroyOnClose
       >
         <Update {...{ showEditModal, selectedCard }} />
       </Modal>
       <div>
-        <Container.All name="news" url="/news">
+        <Container.All name="dealers" url="/dealers">
           {({ items, isLoading }) => {
             return (
               <div>
                 <Button
-                  title="Create new"
+                  title="Create dealer"
                   icon={<CreateDoc />}
+                  // isLoading={successed}
                   size="large"
                   onClick={() => showCreateModal(true)}
                 />
                 <Row
                   justify="space-between"
-                  className="h-[75vh] mt-[15px] items-stretch"
+                  align="stretch"
+                  className="h-[75vh] mt-[15px]"
                 >
-                  {items.map((card, idx) => {
+                  {items.map((card) => {
                     return (
                       <>
                         <Col className="gutter-row mb-5" span={6}>
                           <Card
                             hoverable
                             style={{ width: 260, marginRight: 15 }}
-                            className="pb-4 bg-[#f2f2f2] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
-                            key={idx}
-                            cover={
-                              <div className="">
-                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image[0].medium")} />
-                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image02[0].medium")} />
-                                <img className="object-cover w-[260px] h-[146px]" alt="" src={get(card, "image03[0].medium")} />
-                              </div>
-                            }
+                            className="pb-8 bg-[#f2f2f2] h-[100%] border-[#f2f2f2] dark:bg-[#30354E] dark:border-[#30354E]"
                           >
                             <Meta
-                              className="pb-[40px] p-0"
+                              className="pb-[40px]"
                               title={
-                                <div className="mb-1">
-                                  <p className="dark:text-[#e5e7eb] block truncate">{(get(card, "title", ""))}</p>
-                                  <div className="flex">
-                                    <p className="dark:text-[#e5e7eb]">{(get(card, "hashtag", ""))}</p>
-                                  </div>
+                                <div className="flex justify-between items-center mb-1">
+                                  <p className="dark:text-[#c4c5c8] text-lg">{(get(card, "name", ""))}</p>
+                                  <p className="dark:text-[#c4c5c8] text-lg">{(get(card, "number", ""))}</p>
                                 </div>
                               }
                               description={
-                                <div className="flex justify-between items-center mb-2">
-                                  <p className="dark:text-[#e5e7eb] line-clamp-3">{(get(card, "description", ""))}</p>
+                                <div>
+                                  <p className="dark:text-[#e5e7eb] text-base line-clamp-3  mb-1">{(get(card, "address", ""))}</p>
                                 </div>
                               }
                             />
@@ -153,7 +144,6 @@ const News = () => {
                               </div>
                             </div>
                           </Card>
-                          <br />
                         </Col>
                       </>
                     );
@@ -168,4 +158,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Dealer;

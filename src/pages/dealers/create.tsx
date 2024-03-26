@@ -4,7 +4,7 @@ import { Fields, Button } from "components";
 import { Container } from "modules";
 import { useHooks } from "hooks";
 
-const Video = ({
+const Dealer = ({
   showCreateModal,
   setSuccess,
   successed,
@@ -13,24 +13,28 @@ const Video = ({
   return (
     <div>
       <Container.Form
-        url="/videos"
+        url="/dealers"
         method="post"
-        name="video"
-        configs={{
-          headers: { 'Content-Type': 'multipart/form-data' },
-        }}
+        name="dealers"
         fields={[
           {
-            name: "video",
+            name: "name",
+            type: "string",
             required: true,
           },
           {
-            name: "image",
+            name: "address",
+            type: "string",
+            required: true,
+          },
+          {
+            name: "number",
+            type: "string",
             required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          query.invalidateQueries({ queryKey: ["videos"] });
+          query.invalidateQueries({ queryKey: ["dealers"] });
           setSuccess((prev: any) => !prev);
           resetForm();
           showCreateModal(false);
@@ -43,16 +47,28 @@ const Video = ({
           return (
             <Spin spinning={isSubmitting} tip="Verifying">
               <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
-                name="video"
+                rootClassName="mb-[40px] w-[450px]"
+                component={Fields.Input}
+                name="name"
+                type="text"
+                placeholder={t("name")}
+                size="large"
               />
               <Field
-                component={Fields.FileUpload}
-                setFieldValue={setFieldValue}
-                rootClassName="mb-[40px]"
-                name="image"
+                rootClassName="mb-[40px] w-[450px]"
+                component={Fields.Input}
+                name="address"
+                type="text"
+                placeholder={t("address")}
+                size="large"
+              />
+              <Field
+                rootClassName="mb-[40px] w-[450px]"
+                component={Fields.Input}
+                name="number"
+                type="text"
+                placeholder={t("number")}
+                size="large"
               />
               <Button
                 title="Saqlash"
@@ -68,4 +84,4 @@ const Video = ({
   );
 };
 
-export default Video;
+export default Dealer;

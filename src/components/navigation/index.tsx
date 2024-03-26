@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Menu } from "antd";
-import { FileImageOutlined, UserOutlined, BookOutlined, EditOutlined, UserAddOutlined, PlaySquareOutlined } from "@ant-design/icons";
+import { FileImageOutlined, ClusterOutlined, BarChartOutlined, CommentOutlined, AuditOutlined, EditOutlined, PlaySquareOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import {
   Translation,
@@ -49,19 +49,19 @@ const Navigation: React.FC = () => {
     {
       key: "feedbacks",
       label: "feedbacks",
-      icon: <EditOutlined />,
+      icon: <CommentOutlined />,
       route: "/feedbacks",
     },
     {
       key: "evolutions",
       label: "evolutions",
-      icon: <UserAddOutlined />,
+      icon: <BarChartOutlined />,
       route: "/evolutions",
     },
     {
       key: "partners",
       label: "partners",
-      icon: <BookOutlined />,
+      icon: <AuditOutlined />,
       route: "/partners",
     },
     {
@@ -75,6 +75,12 @@ const Navigation: React.FC = () => {
       label: "videos",
       icon: <PlaySquareOutlined />,
       route: "/videos",
+    },
+    {
+      key: "dealers",
+      label: "dealers",
+      icon: <ClusterOutlined />,
+      route: "/dealers",
     },
     {
       key: "translations",

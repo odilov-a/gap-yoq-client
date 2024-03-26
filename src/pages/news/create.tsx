@@ -41,9 +41,11 @@ const News = ({
           },
           {
             name: "image02",
+            required: true,
           },
           {
             name: "image03",
+            required: true,
           },
         ]}
         onSuccess={(data, resetForm, query) => {
@@ -51,7 +53,7 @@ const News = ({
             message: "Успешно!",
             duration: 2,
           });
-          // query.invalidateQueries({ queryKey: ["news"] });
+          query.invalidateQueries({ queryKey: ["news"] });
           setSuccess((prev: any) => !prev);
           resetForm();
           showCreateModal(false);

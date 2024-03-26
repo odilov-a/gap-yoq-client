@@ -21,6 +21,10 @@ const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
             name: "video",
             type: "string",
           },
+          {
+            name: "image",
+            type: "string",
+          },
         ]}
         onSuccess={(data, resetForm, query) => {
           query.invalidateQueries({ queryKey: ["video"] });
@@ -38,6 +42,12 @@ const Video = ({ showEditModal, selectedCard }: any): JSX.Element => {
                 setFieldValue={setFieldValue}
                 className="mb-4"
                 name="video"
+              />
+              <Field
+                component={Fields.FileUpload}
+                setFieldValue={setFieldValue}
+                className="mb-4"
+                name="image"
               />
               <Button
                 className="w-full border-0 h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
