@@ -42,6 +42,14 @@ const Profile = ({ showUpdateModal }: any): JSX.Element => {
             name: "instagram",
             type: "string",
           },
+          {
+            name: "youtube",
+            type: "string",
+          },
+          {
+            name: "whatsup",
+            type: "string",
+          },
         ]}
         onSuccess={(data, resetForm, query) => {
           showUpdateModal(false)
@@ -99,6 +107,22 @@ const Profile = ({ showUpdateModal }: any): JSX.Element => {
                 name="instagram"
                 type="text"
                 placeholder="instagram"
+                size="large"
+              />
+              <Field
+                rootClassName="mb-5"
+                component={Fields.Input}
+                name="youtube"
+                type="text"
+                placeholder="youtube"
+                size="large"
+              />
+              <Field
+                rootClassName="mb-5"
+                component={Fields.Input}
+                name="whatsup"
+                type="text"
+                placeholder="whatsup"
                 size="large"
               />
               <Button
