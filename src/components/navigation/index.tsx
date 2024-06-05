@@ -33,10 +33,10 @@ const Navigation: React.FC = () => {
       route: "/teams",
     },
     {
-      key: "clients",
-      label: "Mijozlar",
+      key: "galleries",
+      label: "Galleries",
       icon: <StarOutlined />,
-      route: "/clients",
+      route: "/galleries",
     },
     {
       key: "vacancies",

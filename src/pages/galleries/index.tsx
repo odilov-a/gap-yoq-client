@@ -13,7 +13,7 @@ const Client = () => {
   const { mutate } = usePost();
   const onDeleteHandler = (id: string) => {
     Modal.confirm({
-      title: t("Вы действительно хотите удалить client?"),
+      title: t("Вы действительно хотите удалить gallery?"),
       okText: t("да"),
       okType: "danger",
       cancelText: t("нет"),
@@ -24,11 +24,11 @@ const Client = () => {
   const deleteAction = (id: string) => {
     if (id) {
       mutate(
-        { method: "delete", url: `/clients/${id}`, data: null },
+        { method: "delete", url: `/galleries/${id}`, data: null },
         {
           onSuccess: () => {
             queryClient.invalidateQueries({
-              queryKey: [`clients`],
+              queryKey: [`galleries`],
             });
             notification["success"]({
               message: t("Успешно удалена"),
@@ -53,7 +53,7 @@ const Client = () => {
         onCancel={() => showCreateModal({ open: false, data: {} })}
         footer={null}
         centered
-        title={get(createModal, "data._id") ? t("Update client") : t("Create client")}
+        title={get(createModal, "data._id") ? t("Update gallery") : t("Create gallery")}
         width={500}
         destroyOnClose
       >
@@ -61,8 +61,8 @@ const Client = () => {
       </Modal>
       <div>
         <Container.All
-          name="clients"
-          url="/clients"
+          name="galleries"
+          url="/galleries"
           params={{
             page,
             limit: 8,
@@ -73,7 +73,7 @@ const Client = () => {
               <div>
                 <div className="flex justify-between">
                   <Button
-                    title={t("Create clients")}
+                    title={t("Create gallery")}
                     icon={<CreateDoc />}
                     size="large"
                     onClick={() => showCreateModal({ open: true, data: {} })}
@@ -102,12 +102,10 @@ const Client = () => {
                       <>
                         <Col className="flex items-baseline justify-center">
                           <div className="mr-8 mb-4">
-                            <a href={get(card, "link")} target="_blank">
-                              <img
-                                className="object-cover rounded-[10px] w-[260px] h-[200px]"
-                                src={get(card, "images[0].medium")}
-                              />
-                            </a>
+                            <img
+                              className="object-cover rounded-[10px] w-[260px] h-[200px]"
+                              src={get(card, "images[0].medium")}
+                            />
                             <div className="btnPanel2">
                               <div
                                 className="editBtn"

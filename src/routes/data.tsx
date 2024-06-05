@@ -1,6 +1,6 @@
 import { lazy } from "react";
 const Default = lazy(() => import("pages/default"));
-const Client = lazy(() => import("pages/client"));
+const Gallery = lazy(() => import("pages/galleries"));
 const Team = lazy(() => import("pages/team"));
 const User = lazy(() => import("pages/admin"));
 const Vacancy = lazy(() => import("pages/vacancy"));
@@ -38,10 +38,10 @@ const privateRoutes: IRoute[] = [
     element: <Team />,
   },
   {
-    path: "/clients",
+    path: "/galleries",
     access: ["admin"],
-    title: "Mijozlar",
-    element: <Client />,
+    title: "Galleries",
+    element: <Gallery />,
   },
   {
     path: "/vacancies",
