@@ -1,41 +1,22 @@
-import React, { useState, useEffect } from "react";
 import { Fields } from "components";
-import { useNavigate } from "react-router-dom";
 import { FastField, Form, Formik } from "formik";
-import { useHooks, useDebounce } from "hooks";
+import { useHooks } from "hooks";
 
-const Header = () => {
-  const navigate = useNavigate();
-  const { qs } = useHooks();
-  const [inputValue, setInputValue] = useState("");
-  const debouncedValue = useDebounce(inputValue, 600);
-
-  const handleInputChange = (e: any) => {
-    setInputValue(e.target.value);
-  };
-
-  useEffect(() => {
-    navigate({
-      search: debouncedValue
-        ? qs.stringify({
-            search: debouncedValue,
-          })
-        : "",
-    });
-  }, [debouncedValue, navigate]);
+const Header = ({setSearchWord}:any) => {
+  const { t } = useHooks();
 
   return (
     <div>
-      <h1>Header</h1>
+      <h1>{t("Header")}</h1>
       <Formik initialValues={{ search: "" }} onSubmit={() => {}}>
         {() => {
           return (
             <Form>
               <FastField
                 component={Fields.Input}
-                placeholder='Search'
+                placeholder={t('Search')}
                 name='search'
-                onChange={handleInputChange}
+                onChange={(e:any) => setSearchWord(e.target.value)}
               />
             </Form>
           );

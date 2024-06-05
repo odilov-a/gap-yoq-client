@@ -5,6 +5,9 @@ import Select from "./select";
 import DatePicker from "./datePicker";
 import FileUploadEmpower from "./fileUploadEmpower";
 import FileUpload from "./fileUpload";
+import AntAsyncSelect from "./ant-async-select";
+import AsyncSelect from "./AsyncSelect";
+import Textarea from "./textarea";
 
 export default {
   Input,
@@ -13,5 +16,8 @@ export default {
   Select,
   DatePicker,
   FileUpload,
-  FileUploadEmpower
+  FileUploadEmpower,
+  AntAsyncSelect,
+  AsyncSelect,
+  Textarea
 };

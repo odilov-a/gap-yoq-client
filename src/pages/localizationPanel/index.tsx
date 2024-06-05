@@ -7,28 +7,29 @@ import { useDebounce, usePost } from "hooks";
 import { Header } from "./components";
 
 const Localization = () => {
-  const { query, get, t } = useHooks();
+  const { get, t } = useHooks();
   const { mutate } = usePost();
   const [inputValue, setInputValue] = useState<{
     value: string;
     data: {
       message: string;
-      id: string;
+      _id: string;
       en: string;
       uz: string;
     } | null;
-    changedLangCode: "uz" | "en" | "ru" | "kr" | null;
+    changedLangCode: "uz" | "en" | "ru" | null;
   }>({
     data: null,
     value: "",
     changedLangCode: null,
   });
+  const [searchWord, setSearchWord] = useState("")
   const inputValueDebounced = useDebounce(inputValue.value, 600);
-
+  const inputValueDebouncedSearch = useDebounce(searchWord, 600);
   function handleTranslationInput(
     e: ChangeEvent<HTMLInputElement>,
-    data: { message: string; id: string; en: string; uz: string, ru: string, kr: string },
-    langCode: "uz" | "en" | "kr" | "ru"
+    data: { message: string; _id: string; en: string; uz: string, ru: string },
+    langCode: "uz" | "en" | "ru"
   ) {
     setInputValue({
       value: e.target.value,
@@ -40,10 +41,10 @@ const Localization = () => {
   useEffect(() => {
     if (inputValue.data) {
       mutate({
-        url: `/translations/update`,
+        url: `/translations/${get(inputValue.data, 'id')}`,
         method: "put",
         data: {
-          id : get(inputValue.data, 'id'),
+          id: get(inputValue.data, 'id'),
           lang: inputValue.changedLangCode,
           translation: inputValueDebounced
         },
@@ -53,19 +54,12 @@ const Localization = () => {
 
   return (
     <div>
-      <Header />
+      <Header {...{setSearchWord}}/>
       <h1>{t("Localization")}</h1>
       <Container.All
-        url='/translations'
+        url={`/translations/${inputValueDebouncedSearch && "search/" + inputValueDebouncedSearch}`}
         name='localization'
-        // params={{
-        //   limit: +get(query, "limit", 10),
-        //   page: +get(query, "page", 1),
-        //   sort: "-id",
-        //   extra: {
-        //     search: get(query, "search"),
-        //   },
-        // }}
+        
       >
         {({ isLoading, meta, items }) => {
           return (
@@ -73,13 +67,6 @@ const Localization = () => {
               <Table
                 items={items}
                 columns={[
-                  {
-                    key: "id",
-                    title: t("ID"),
-                    dataIndex: "id",
-                    className: "class",
-                    render: (value) => <>{value}</>,
-                  },
                   {
                     key: "manba",
                     title: t("Manba"),
@@ -99,24 +86,6 @@ const Localization = () => {
                             defaultValue={value}
                             onChange={(e) => {
                               handleTranslationInput(e, data, "uz");
-                            }}
-                          />
-                        </div>
-                      );
-                    },
-                  },
-                  {
-                    key: "kr",
-                    title: t("Kiril alifbosi"),
-                    dataIndex: "kr",
-                    className: "class",
-                    render: (value, data) => {
-                      return (
-                        <div>
-                          <Input
-                            defaultValue={value}
-                            onChange={(e) => {
-                              handleTranslationInput(e, data, "kr");
                             }}
                           />
                         </div>

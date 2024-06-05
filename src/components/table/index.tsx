@@ -12,7 +12,6 @@ interface IProps {
     isLoading?: boolean
 }
 
-
 const TableComponent = (props: IProps) => {
   const {columns, items, hasPagination = true, meta, isLoading} = props
   const {get, query, navigate, qs} = useHooks()

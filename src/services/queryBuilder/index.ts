@@ -30,7 +30,7 @@ const queryBuilder = (
   }
 
   if (limit > 0) {
-    queryObj.param("per_page", Number(limit));
+    queryObj.param("perPage", Number(limit));
   }
 
   if (sort) {

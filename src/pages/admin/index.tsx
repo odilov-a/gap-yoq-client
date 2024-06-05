@@ -1,84 +1,66 @@
-import { Fields } from "components";
-import { FastField, Field } from "formik";
-import { Container } from "modules";
 import { useState } from "react";
-import { Card, Col, Modal, Row } from "antd";
-import { EditOutlined } from "@ant-design/icons";
+import { Card, Modal } from "antd";
+import { useHooks, useGet } from "hooks";
 import Update from "./update";
-import useStore from "store"
-import { useHooks } from "hooks";
+import { Edit } from "assets/images/icons";
 
-const Profile = () => {
+const User = () => {
   const { get, t } = useHooks();
   const { Meta } = Card;
-  const [updateModal, showUpdateModal] = useState(false);
+  const [editModal, showEditModal] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const onEdit = (item: object) => {
+    showEditModal(true);
+    setSelectedCard(item);
+  };
+  const { data } = useGet({
+    name: "users/update-user",
+    url: "users/get-me",
+  });
+  const info = get(data, "data", {})
+
   return (
     <div className="flex">
       <Modal
-        open={updateModal}
-        onOk={() => showUpdateModal(true)}
-        onCancel={() => showUpdateModal(false)}
+        open={editModal}
+        onOk={() => showEditModal(true)}
+        onCancel={() => showEditModal(false)}
         footer={null}
         centered
-        width={500}
+        title={t("Edit user")}
+        width={700}
         destroyOnClose
       >
-        <Update {...{ showUpdateModal }} />
+        <Update {...{ showEditModal, selectedCard }} />
       </Modal>
-
-      <Container.All name="profile" url="get-me">
-        {({ items, isLoading }) => {
-          return (
-            <div>
-              <Row
-                justify="space-between"
-                className="h-[75vh] overflow-y-auto mt-[15px]"
+      <div>
+        <div>
+          <Card
+            hoverable
+            style={{ width: 400, marginRight: 15 }}
+          >
+            <Meta
+              className="pb-[60px]"
+              title={
+                <div className="">
+                  <p>{t("ID")} - {(get(info, "_id", ""))}</p>
+                  <p>{t("Login")} - {(get(info, "username", ""))}</p>
+                </div>
+              }
+            />
+            <div className="btnPanel">
+              <div
+                className="editBtn"
+                onClick={() => onEdit(info)}
               >
-                <>
-                  <Col className="gutter-row mb-5" span={6}>
-                    <Card
-                      hoverable
-                      style={{ width: 750, marginRight: 15 }}
-                      className="pb-8"
-                    >
-                      <Meta
-                        className="pb-[40px] flex"
-                        title={
-                          <div className="mb-3">
-                            <p>ID: {(get(items, "_id", ""))}</p>
-                            <p>Yaratilgan: {(get(items, "createdAt", ""))}</p>
-                            <p>Username: {(get(items, "login", ""))}</p>
-                          </div>
-                        }
-                        description={
-                          <div className="mb-3">
-                            <p>address: {(get(items, "address", "none"))}</p>
-                            <p>number: {(get(items, "number", "none"))}</p>
-                            <p>telegram: {(get(items, "telegram", "none"))}</p>
-                            <p>instagram: {(get(items, "instagram", "none"))}</p>
-                            <p>youtube: {(get(items, "youtube", "none"))}</p>
-                            <p>whatsup: {(get(items, "whatsup", "none"))}</p>
-                          </div>
-                        }
-                      />
-                      <div className="btnPanel">
-                        <div
-                          className="cursor-pointer text-sky-500"
-                          onClick={() => showUpdateModal(true)}
-                        >
-                          <EditOutlined />
-                        </div>
-                      </div>
-                    </Card>
-                  </Col>
-                </>
-              </Row>
+                <Edit />
+              </div>
             </div>
-          );
-        }}
-      </Container.All>
+          </Card>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default Profile;
+export default User;

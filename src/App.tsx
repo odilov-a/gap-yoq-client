@@ -6,10 +6,9 @@ import { Spin } from "antd";
 
 function App() {
   const { getMe, logOut, auth: { isLoggedIn } } = useStore((state) => state);
-
   const { isLoading } = useGet({
-    name: "get-me",
-    url: "get-me",
+    name: "users/get-me",
+    url: "users/get-me",
     onSuccess: (data) => {
       getMe({ data: data });
     },

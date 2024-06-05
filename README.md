@@ -1,0 +1,1 @@
+gap yo'q admin

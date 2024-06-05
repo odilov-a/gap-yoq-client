@@ -7,4 +7,22 @@ import Modal from "./modal";
 import Button from "./button";
 import Img from "./img";
 
-export { Layout, Header, Fields, Navigation, Table, Modal, Img, Button };
+import {
+  AntInput,
+  AntTextarea,
+  AntSelect,
+  AntTimePicker,
+  AntPassword,
+  AntTreeSelect,
+  AntInputNumber,
+  AntRadio
+} from "./AntFields";
+
+export { Layout, Header, Fields, Navigation, Table, Modal, Img, Button, AntInput,
+  AntTextarea,
+  AntSelect,
+  AntTimePicker,
+  AntPassword,
+  AntTreeSelect,
+  AntInputNumber,
+  AntRadio };

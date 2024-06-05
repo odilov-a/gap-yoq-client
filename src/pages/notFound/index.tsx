@@ -2,7 +2,7 @@ import Button from "components/button";
 import { useHooks } from "hooks";
 
 const NotFound = () => {
-  const { navigate } = useHooks();
+  const { navigate , t } = useHooks();
   return (
     <div className="notfound-page">
       <div className="center h-[100%] flex items-center justify-center flex-col">
@@ -26,9 +26,8 @@ const NotFound = () => {
           </div>
           <div className="number">4</div>
         </div>
-
         <div className="text-[25px] mt-[5rem] font-[300] text-[#293b49] dark:text-[#517491]">
-          Oops. The page you're looking for doesn't exist.
+          {t("Oops. The page you're looking for doesn't exist.")}
         </div>
         <Button
           title="Back Home"

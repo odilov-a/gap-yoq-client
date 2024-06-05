@@ -4,8 +4,9 @@ import { Modal, Upload } from "antd";
 import { GetProp, UploadFile, UploadProps, message } from "antd";
 import { FieldProps } from "formik";
 import { usePost, useHooks } from "hooks";
-import axios from "axios";
 import { storage } from "services";
+
+import NoImage from 'assets/images/product-not-found.jpg'
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -38,7 +39,7 @@ const App = (props: Props) => {
   const uploadRef = useRef<any>(null);
 
   const {
-    form: { setFieldValue },
+    form: { setFieldValue, values },
     field: { name, value },
     className,
     successed,
@@ -46,7 +47,7 @@ const App = (props: Props) => {
     label,
     limit = 1,
     listType,
-    onSuccess = () => {},
+    onSuccess = () => { },
     hasSuccess = false,
     customDelete = true,
   } = props;
@@ -54,7 +55,12 @@ const App = (props: Props) => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
   const [previewTitle, setPreviewTitle] = useState("");
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>(get(values, name) ? [{
+    uid: get(values, "_id",),
+    name: get(values, "productTitle"),
+    status: 'done',
+    url: get(values, name,  'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'),
+  }] : []);
 
   const handleCancel = () => setPreviewOpen(false);
 
@@ -76,7 +82,7 @@ const App = (props: Props) => {
 
   const uploadButton = (
     <button style={{ border: 0, background: "none" }} type="button">
-      <PlusOutlined style={isDark ? {color: "#9EA3B5"} : {color: "#000"}}/>
+      <PlusOutlined style={isDark ? { color: "#9EA3B5" } : { color: "#000" }} />
       <div className="mt-[8px] dark:text-[#9EA3B5]">Upload</div>
     </button>
   );

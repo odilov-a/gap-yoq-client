@@ -1,142 +1,70 @@
 import { Fields } from "components";
 import { Field } from "formik";
 import { Container } from "modules";
-import { Button, Spin } from "antd";
 import { useHooks } from "hooks";
-import useStore from "store"
+import { Button } from "antd";
 
-const Profile = ({ showUpdateModal }: any): JSX.Element => {
-  const { get } = useHooks();
-  const { auth: { data } } = useStore(state => state)
-
+const User = ({ showEditModal, selectedCard }: any): JSX.Element => {
+  const { get, t } = useHooks();
   return (
     <div>
       <Container.Form
-        url={`user/${get(data, "_id")}`}
-        name="profile"
+        url="users/update-user"
         method="put"
+        name="users/update-user"
         fields={[
           {
-            name: "login",
+            name: "username",
             type: "string",
+            value: get(selectedCard, "username"),
             required: true,
           },
           {
             name: "password",
             type: "string",
+            value: get(selectedCard, "password"),
             required: true,
-          },
-          {
-            name: "address",
-            type: "string",
-          },
-          {
-            name: "number",
-            type: "string",
-          },
-          {
-            name: "telegram",
-            type: "string",
-          },
-          {
-            name: "instagram",
-            type: "string",
-          },
-          {
-            name: "youtube",
-            type: "string",
-          },
-          {
-            name: "whatsup",
-            type: "string",
           },
         ]}
         onSuccess={(data, resetForm, query) => {
-          showUpdateModal(false)
+          query.invalidateQueries({ queryKey: ["users/update-user"] });
+          showEditModal(false)
         }}
         onError={(error) => {
           console.log("Error", error);
         }}
       >
-        {({ isLoading }) => {
+        {({ isSubmitting, setFieldValue }) => {
           return (
-            <div>
-              <Field
-                component={Fields.Input}
-                rootClassName="mb-5"
-                name="login"
-                type="text"
-                placeholder="Username"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="password"
-                type="text"
-                placeholder="password"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="address"
-                type="text"
-                placeholder="address"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="number"
-                type="text"
-                placeholder="number"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="telegram"
-                type="text"
-                placeholder="telegram"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="instagram"
-                type="text"
-                placeholder="instagram"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="youtube"
-                type="text"
-                placeholder="youtube"
-                size="large"
-              />
-              <Field
-                rootClassName="mb-5"
-                component={Fields.Input}
-                name="whatsup"
-                type="text"
-                placeholder="whatsup"
-                size="large"
-              />
+            <div className="">
+                <Field
+                  rootClassName="mb-[20px] w-full"
+                  component={Fields.Input}
+                  name="username"
+                  type="text"
+                  placeholder={t("username")}
+                  size="large"
+                />
+                <Field
+                  rootClassName="mb-[20px] w-full"
+                  component={Fields.Input}
+                  name="password"
+                  type="password"
+                  placeholder={t("password")}
+                  size="large"
+                />
               <Button
-                className="w-full h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
-                htmlType="submit"
-              >
-                Saqlash
-              </Button>
+                  className="w-full h-auto py-[10px] px-4 bg-[#2196F3] text-white font-bold hover:!text-white"
+                  htmlType="submit"
+                >
+                  {t("Saqlash")}
+                </Button>
             </div>
           );
         }}
       </Container.Form>
-    </div >
+    </div>
   );
 };
 
-export default Profile;
+export default User;

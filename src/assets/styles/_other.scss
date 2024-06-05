@@ -346,20 +346,6 @@ body.dark {
   background-position: right bottom;
 }
 
-.ant-modal-confirm-title {
-  color: #9EA3B5 !important;
-}
-
-.ant-modal-confirm-btns {
-  .ant-btn-default {
-    color: #9EA3B5 !important;
-  }
-  
-  .ant-btn-dangerous {
-    color: #9EA3B5 !important;
-  }
-}
-
 .btnPanel2 {
   position: absolute;
   bottom: 30px;
@@ -380,4 +366,9 @@ body.dark {
     padding: 7px 10px 9px 9px;
     background-color: #ffa39e;
   }
+}
+.scrollable-div {
+  max-height: 100px; /* Adjust the height as needed */
+  overflow-y: auto; /* Add vertical scrollbar */
+  /* Optionally, you can add other styles here */
 }

@@ -1,16 +1,13 @@
 import { lazy } from "react";
 const Default = lazy(() => import("pages/default"));
-const News = lazy(() => import("pages/news"));
-const Feedback = lazy(() => import("pages/feedbacks"));
-const Evolutions = lazy(() => import("pages/evolutions"));
-const Dealers = lazy(() => import("pages/dealers"));
-const Galleries = lazy(() => import("pages/galleries"));
-const Videos = lazy(() => import("pages/videos"));
-const Partners = lazy(() => import("pages/partners"));
-const Admin = lazy(() => import("pages/admin"));
-const Login = lazy(() => import("pages/login"));
+const Client = lazy(() => import("pages/client"));
+const Team = lazy(() => import("pages/team"));
+const User = lazy(() => import("pages/admin"));
+const Vacancy = lazy(() => import("pages/vacancy"));
+const Portfolio = lazy(() => import("pages/portfolio"));
 const NotFound = lazy(() => import("pages/notFound"));
 const LocalizationPanel = lazy(() => import("pages/localizationPanel"));
+// const Login = lazy(() => import("pages/login"));
 
 export interface IRoute {
   path: string;
@@ -29,57 +26,39 @@ const privateRoutes: IRoute[] = [
     element: <Default />,
   },
   {
-    path: "/news",
-    access: ["admin"],
-    title: "news",
-    element: <News />,
-  },
-  {
-    path: "/feedbacks",
-    access: ["admin"],
-    title: "feedbacks",
-    element: <Feedback />,
-  },
-  {
-    path: "/evolutions",
-    access: ["admin"],
-    title: "evolutions",
-    element: <Evolutions />,
-  },
-  {
-    path: "/galleries",
-    access: ["admin"],
-    title: "galleries",
-    element: <Galleries />,
-  },
-  {
-    path: "/videos",
-    access: ["admin"],
-    title: "videos",
-    element: <Videos />,
-  },
-  {
-    path: "/partners",
-    access: ["admin"],
-    title: "partners",
-    element: <Partners />,
-  },
-  {
-    path: "/dealers",
-    access: ["admin"],
-    title: "dealers",
-    element: <Dealers />,
-  },
-  {
     path: "/profile",
     access: ["admin"],
-    title: "profile",
-    element: <Admin />,
+    title: "Profile",
+    element: <User />,
+  },
+  {
+    path: "/teams",
+    access: ["admin"],
+    title: "Jamoa",
+    element: <Team />,
+  },
+  {
+    path: "/clients",
+    access: ["admin"],
+    title: "Mijozlar",
+    element: <Client />,
+  },
+  {
+    path: "/vacancies",
+    access: ["admin"],
+    title: "Vakansiyalar",
+    element: <Vacancy />,
+  },
+  {
+    path: "/portfolio",
+    access: ["admin"],
+    title: "Portfolio",
+    element: <Portfolio />,
   },
   {
     path: "/translations",
     access: ["admin"],
-    title: "",
+    title: "Translations",
     element: <LocalizationPanel />,
   },
   {
